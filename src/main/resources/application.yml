@@ -1,0 +1,30 @@
+spring:
+  profiles:
+    active: local
+    
+---
+spring:
+  profiles: local
+neo:
+  url: http://localhost:7474?
+  username: user=neo4j
+  password: password=thend111
+
+sql:
+  query:
+    movie: "MATCH (film {title: {1}})<-[:DIRECTED]-(directors) RETURN directors.name"
+    directorMovies: "MATCH (director {name: {1}})-[:DIRECTED]->(films) RETURN films.title"
+---
+spring:
+  profiles: dev
+  
+neo:
+  url: http://localhost:7474?
+  username: user=neo4j
+  password: password=thend111
+
+sql:
+  query:
+    movie: "MATCH (film {title: {1}})<-[:DIRECTED]-(directors) RETURN directors.name" 
+    directorMovies: "MATCH (director {name: {1}})-[:DIRECTED]->(films) RETURN films.title"
+---

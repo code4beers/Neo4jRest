@@ -1,0 +1,50 @@
+/*
+ * by 'tbilgere' at '9/1/16 10:30 AM' with Gradle 2.14.1
+ */
+
+version '1.0'
+
+task wrapper(type: Wrapper) {
+	gradleVersion = '2.2'
+	distributionUrl = "https://services.gradle.org/distributions/gradle-$gradleVersion-all.zip"
+}
+
+buildscript {
+	repositories {
+		jcenter()
+		maven { url "http://repo.spring.io/snapshot" }
+		maven { url "http://repo.spring.io/milestone" }
+	}
+	dependencies { classpath("org.springframework.boot:spring-boot-gradle-plugin:1.4.0.RELEASE") }
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'spring-boot'
+apply plugin: 'application'
+
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
+
+repositories {
+	mavenCentral()
+	maven { url "http://repo.spring.io/snapshot" }
+	maven { url "http://repo.spring.io/milestone" }
+	jcenter()
+}
+
+dependencies {
+	compile 'org.slf4j:slf4j-api:1.7.21'
+	compile("org.springframework.boot:spring-boot-starter")
+	compile('org.springframework.boot:spring-boot-starter-web')
+	compile("org.springframework.boot:spring-boot-starter-jdbc:1.2.4.RELEASE")
+	compile("org.neo4j:neo4j-jdbc-driver:3.0")
+	compile group: 'commons-collections', name: 'commons-collections', version: '3.2'
+	testCompile('org.springframework:spring-test:4.1.7.RELEASE')
+	testCompile 'junit:junit:4.12'
+	testCompile group: 'junit', name: 'junit', version: '4.+'
+}
+
+
+
+
