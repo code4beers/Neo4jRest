@@ -39,5 +39,11 @@ public class RestControl {
 		result = dao.movieDirectorMovies(name);
 		return new Content(result);
 	}
+	
+	@RequestMapping("/movieRelate")
+	public Content movieRelate(@RequestParam(value = "name") String name, @RequestParam(value = "relate") String relate){
+		Object result = dao.movieRelate(name, relate);
+		return new Content(result);
+	}
 
 }

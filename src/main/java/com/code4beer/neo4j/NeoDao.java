@@ -25,25 +25,29 @@ public class NeoDao {
 		this.template = jdbcTemplate;
 	}
 
-	public Object movieDirector(String name) {
-		List<Map<String, Object>> results = template.queryForList(appProps.getSqlQueryMovie(), name);
+	private Object processReply(List<Map<String, Object>> reply) {
 		Object returnValue = null;
 		ArrayList<String> returnValueList = new ArrayList<>();
-		if (results.size() > 1) {
-			for (Map<String, Object> mapped : results) {
+		if (reply.size() > 1) {
+			for (Map<String, Object> mapped : reply) {
 				for (Object res : mapped.values()) {
 					returnValueList.add((String) res);
 				}
 			}
 			returnValue = returnValueList;
 		} else {
-			for (Map<String, Object> mapped : results) {
-				for (Object res : mapped.values()) {
-					returnValue = (String) res;
-				}
+			Map<String, Object> mapped = reply.get(0);
+			for (Object res : mapped.values()) {
+				returnValue = (String) res;
 			}
 		}
 		return returnValue;
+	}
+
+	public Object movieDirector(String name) {
+		List<Map<String, Object>> results = template.queryForList(appProps.getSqlQueryMovie(), name);
+		return processReply(results);
+
 	}
 
 	public ArrayList<String> movieDirectorMovies(String name) {
@@ -59,5 +63,10 @@ public class NeoDao {
 			}
 		}
 		return returnValue;
+	}
+
+	public Object movieRelate(String name, String relate) {
+		List<Map<String, Object>> results = template.queryForList(appProps.getSqlQueryRelateMovie(), name, relate);
+		return processReply(results);
 	}
 }
